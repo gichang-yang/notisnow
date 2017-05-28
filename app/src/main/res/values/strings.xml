@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">Notisnow</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="title_chemistry">화공</string>
+    <string name="title_it">IT공학전공</string>
+    <string name="title_electronic">전자공학</string>
+    <string name="title_physics">물리</string>
+
+
+
+    <!--not contained in this version-->
+    <string name="title_sw">sw학부</string>
+    <string name="title_basics">기초공학부</string>
+</resources>
