@@ -7,13 +7,25 @@
         android:title="@string/title_home" />
 
     <item
-        android:id="@+id/navigation_dashboard"
-        android:icon="@drawable/ic_dashboard_black_24dp"
-        android:title="@string/title_dashboard" />
+        android:id="@+id/navigation_software"
+        android:icon="@drawable/major_software"
+        android:title="@string/title_sw"/>
 
     <item
-        android:id="@+id/navigation_notifications"
-        android:icon="@drawable/ic_notifications_black_24dp"
-        android:title="@string/title_notifications" />
+        android:id="@+id/navigation_chemistry"
+        android:icon="@drawable/major_chemic"
+        android:title="@string/title_chemistry"/>
+
+    <item
+        android:id="@+id/navigation_electronic"
+        android:icon="@drawable/major_electron"
+        android:title="@string/title_electronic"/>
+
+    <item
+        android:id="@+id/navigation_mechanical"
+        android:icon="@drawable/major_mechanical"
+        android:title="@string/title_mechanical"/>
+
+
 
 </menu>

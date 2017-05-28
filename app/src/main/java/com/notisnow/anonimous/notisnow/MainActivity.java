@@ -7,7 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.widget.TextView;
 
-public class MainActivity extends AppCompatActivity implements MainContract.View{
+public class MainActivity extends AppCompatActivity implements MainContract.View {
 
     private TextView mTextMessage;
 
@@ -20,12 +20,20 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
                 case R.id.navigation_home:
                     mTextMessage.setText(R.string.title_home);
                     return true;
-                case R.id.navigation_dashboard:
+                case R.id.navigation_software:
                     mTextMessage.setText(R.string.title_dashboard);
                     return true;
-                case R.id.navigation_notifications:
+
+                case R.id.navigation_mechanical:
                     mTextMessage.setText(R.string.title_notifications);
                     return true;
+                case R.id.navigation_electronic:
+                    mTextMessage.setText(R.string.title_electronic);
+                    return true;
+                case R.id.navigation_chemistry:
+                    mTextMessage.setText(R.string.title_chemistry);
+                    return true;
+
             }
             return false;
         }
