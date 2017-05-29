@@ -17,9 +17,9 @@
         android:title="@string/title_chemistry"/>
 
     <item
-        android:id="@+id/navigation_electronic"
-        android:icon="@drawable/major_electron"
-        android:title="@string/title_electronic"/>
+        android:id="@+id/navigation_ict"
+        android:icon="@drawable/major_ict"
+        android:title="@string/title_ict"/>
 
     <item
         android:id="@+id/navigation_mechanical"
