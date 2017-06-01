@@ -17,6 +17,7 @@ public class NoticeItem extends LinearLayout {
 
     public NoticeItem(Context context) {
         super(context);
+        init(context);
     }
 
     private void init(Context context){
@@ -25,5 +26,21 @@ public class NoticeItem extends LinearLayout {
 
         title=(TextView)findViewById(R.id.title);
         date=(TextView)findViewById(R.id.date);
+    }
+
+    public String getTitle() {
+        return title.getText().toString();
+    }
+
+    public void setTitle(String title) {
+        this.title.setText(title);
+    }
+
+    public String getDate() {
+        return date.getText().toString();
+    }
+
+    public void setDate(String date) {
+        this.date.setText(date);
     }
 }

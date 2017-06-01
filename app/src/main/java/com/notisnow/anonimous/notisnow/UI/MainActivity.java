@@ -1,5 +1,6 @@
 package com.notisnow.anonimous.notisnow.UI;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -18,6 +19,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
     ListView listView;
     MajorAdapter adapter;
     NoticeAdapter noticeAdapter;
+    MainPresenter presenter;
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
@@ -26,21 +28,20 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
 
             switch (item.getItemId()) {
                 case R.id.navigation_home:
-
-
-                    noticeAdapter=new NoticeAdapter();
+                    noticeAdapter = new NoticeAdapter();
                     listView.setAdapter(noticeAdapter);
+                    presenter.getNoticeList(0);
+
                     return true;
 
                 case R.id.navigation_software:
 
-                    noticeAdapter=new NoticeAdapter();
+                    noticeAdapter = new NoticeAdapter();
                     listView.setAdapter(noticeAdapter);
                     return true;
 
                 case R.id.navigation_mechanical:
-
-                    noticeAdapter=new NoticeAdapter();
+                    noticeAdapter = new NoticeAdapter();
                     listView.setAdapter(noticeAdapter);
                     return true;
 
@@ -51,7 +52,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
 
                 case R.id.navigation_chemistry:
 
-                    noticeAdapter=new NoticeAdapter();
+                    noticeAdapter = new NoticeAdapter();
                     listView.setAdapter(noticeAdapter);
 
                     return true;
@@ -67,7 +68,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        MainPresenter presenter = new MainPresenter();
+        presenter = new MainPresenter(this);
         presenter.setView(this);
 
 
@@ -75,12 +76,18 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
 
 
-        adapter=new MajorAdapter();
+        adapter = new MajorAdapter();
         listView = (ListView) findViewById(R.id.totallist);
 
+//        presenter.getNoticeList(0);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
         adapter.notifyDataSetChanged();
     }
 
+    @Override
+    public Context getContext() {
+
+        return getApplicationContext();
+    }
 }

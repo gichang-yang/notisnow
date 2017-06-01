@@ -1,5 +1,11 @@
 package com.notisnow.anonimous.notisnow.UI;
 
+import android.content.Context;
+
+import com.notisnow.anonimous.notisnow.Adapter.MajorAdapter;
+import com.notisnow.anonimous.notisnow.Adapter.NoticeAdapter;
+import com.notisnow.anonimous.notisnow.Model.Notice;
+
 import java.util.ArrayList;
 
 /**
@@ -8,12 +14,20 @@ import java.util.ArrayList;
 
 public interface MainContract {
     interface View{
-
+        Context getContext();
     }
 
     interface Presenter{
         void setView(View v);
-        ArrayList<String> getNoticeList(int id);
+        ArrayList<Notice> getNoticeList(int id);
+        NoticeAdapter getNoticeAdapter();
+        MajorAdapter getMajorAdapter();
 
     }
+
+   interface Model{
+
+   }
+
+
 }

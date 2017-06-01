@@ -16,7 +16,7 @@ import com.notisnow.anonimous.notisnow.R;
 public class MajorAdapter extends BaseAdapter {
 
 
-    String[] majorArray={"전자공학전공","응용물리학과","it공학전공"};
+    String[] majorArray={"전자공학전공","응용물리전공","IT공학전공"};
     int[] majImgIdArray={R.drawable.major_electron,R.drawable.major_physics,R.drawable.major_it};
     Context context;
 
