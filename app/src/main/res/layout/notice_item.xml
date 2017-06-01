@@ -22,7 +22,7 @@
         android:gravity="center_vertical"
         android:text="차세대광전자소재/소자연구실 대학원생 4명, 우수발표논문상 수상"
         android:textColor="#000000"
-        android:textSize="20sp" />
+        android:textSize="15sp" />
 
     <TextView
         android:id="@+id/date"

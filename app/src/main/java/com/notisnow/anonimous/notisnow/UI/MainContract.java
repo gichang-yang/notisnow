@@ -15,6 +15,7 @@ import java.util.ArrayList;
 public interface MainContract {
     interface View{
         Context getContext();
+        void setNoticeAdapter(NoticeAdapter adapter);
     }
 
     interface Presenter{

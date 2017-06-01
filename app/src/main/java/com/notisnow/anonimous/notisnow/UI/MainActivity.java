@@ -28,8 +28,8 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
 
             switch (item.getItemId()) {
                 case R.id.navigation_home:
-                    noticeAdapter = new NoticeAdapter();
-                    listView.setAdapter(noticeAdapter);
+                    //noticeAdapter = new NoticeAdapter();
+                    //listView.setAdapter(noticeAdapter);
                     presenter.getNoticeList(0);
 
                     return true;
@@ -63,13 +63,19 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
 
     };
 
+    public void setNoticeAdapter(NoticeAdapter adapter){
+        listView.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
+    }
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         presenter = new MainPresenter(this);
-        presenter.setView(this);
+        presenter.setView(this);;
 
 
 

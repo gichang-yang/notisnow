@@ -13,7 +13,8 @@ import com.notisnow.anonimous.notisnow.Adapter.NoticeAdapter;
 import com.notisnow.anonimous.notisnow.Model.Notice;
 import com.notisnow.anonimous.notisnow.staticField.Data;
 
-import org.jsoup.nodes.Element;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
 
 import java.util.ArrayList;
@@ -30,33 +31,53 @@ public class MainPresenter implements MainContract.Presenter {
     RequestQueue queue;
     StringBuffer result;
     Elements element;
+    ArrayList<Notice> NoticeList;
+
     public MainPresenter(MainActivity mainActivity) {
         this.mainActivity = mainActivity;
     }
 
     @Override
     public void setView(MainContract.View v) {
-        this.view=view;
+        this.view = view;
     }
 
-    public String fetch(String url){
-       // BaseApplication application = new BaseApplication();
+    public ArrayList<Notice> fetch(String url) {
+        // BaseApplication application = new BaseApplication();
         //application.onCreate();
         //queue= BaseApplication.getRequestQueue();
-       // Log.d("Request queue is...",queue.toString());
-        queue= Volley.newRequestQueue(mainActivity.getContext());
+        // Log.d("Request queue is...",queue.toString());
+        queue = Volley.newRequestQueue(mainActivity.getContext());
 
-        result= new StringBuffer("");
+
+        result = new StringBuffer("");
+
 
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
 
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        Log.d("responseREQUESTQUEUE",response);
-                        result.append(response.toString());
-                        element= new Element(result.toString()).select("td.title");
-                        Log.d("selected elements",element.toString());
+                        Log.d("responseREQUESTQUEUE", response);
+                        Document doc = Jsoup.parse(response);
+                        result.append(response);
+                        element = doc.select("td.title");
+                        NoticeList = new ArrayList<>();
+                        for (int i = 0; i < element.size(); i++) {
+                            Notice notice = new Notice();
+                            notice.setTitle(element.get(i).text());
+                            notice.setLink(element.get(i).attr("href"));
+                            notice.setDate("2017");
+                            NoticeList.add(notice);
+
+
+
+                        }
+                        // Log.d("fetched",tag);
+                        NoticeAdapter adapter = new NoticeAdapter();
+                        adapter.setNoticeList(NoticeList);
+                        mainActivity.setNoticeAdapter(adapter);
+                        Log.d("selected elements", element.toString());
 
                     }
                 },
@@ -66,30 +87,28 @@ public class MainPresenter implements MainContract.Presenter {
 
 
                         result.append("error");
-                        Log.d("responseREQUESTQUEUE","error");
+                        Log.d("responseREQUESTQUEUE", "error");
                     }
                 }
 
         );
-        Log.d("stringREQ",stringRequest.toString());
+        Log.d("stringREQ", stringRequest.toString());
         //try {
-            queue.add(stringRequest);
+        queue.add(stringRequest);
         //}catch (Exception e){
         //    e.printStackTrace();
         //}
-       return result.toString();
+
+        return NoticeList;
     }
 
 
     @Override
     public ArrayList<Notice> getNoticeList(int id) {
-        String tag=fetch(Data.getUrl()[id]);
-
-                Log.d("fetched",tag);
 
 
 
-        switch(id){
+        switch (id) {
             case 0:
                 //Log.d("elements",element.select("td.title").toString());
                 break;
@@ -103,14 +122,17 @@ public class MainPresenter implements MainContract.Presenter {
                 break;
         }
 
-        return null;
+        return fetch(Data.getUrl()[id]);
     }
+
+
 
 
     @Override
     public NoticeAdapter getNoticeAdapter() {
         return new NoticeAdapter();
     }
+
     @Override
     public MajorAdapter getMajorAdapter() {
         return null;

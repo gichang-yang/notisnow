@@ -20,7 +20,7 @@ public class NoticeAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        return 0;
+        return notices.size();
         //return notices.size();
     }
 
