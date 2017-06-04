@@ -28,8 +28,11 @@
         android:id="@+id/date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
+        android:layout_gravity="right|center_vertical"
+        android:layout_marginRight="10dp"
         android:layout_weight="1"
+        android:gravity="right"
+        android:minWidth="50dp"
         android:text="2017.05.29"
         android:textSize="10sp" />
 </LinearLayout>

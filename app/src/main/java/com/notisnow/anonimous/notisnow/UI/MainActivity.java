@@ -6,7 +6,10 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.notisnow.anonimous.notisnow.Adapter.MajorAdapter;
@@ -15,6 +18,7 @@ import com.notisnow.anonimous.notisnow.R;
 
 public class MainActivity extends AppCompatActivity implements MainContract.View {
 
+    RelativeLayout tmpLayout;
     private TextView mTextMessage;
     ListView listView;
     MajorAdapter adapter;
@@ -25,38 +29,27 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
 
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-
             switch (item.getItemId()) {
                 case R.id.navigation_home:
-                    //noticeAdapter = new NoticeAdapter();
-                    //listView.setAdapter(noticeAdapter);
                     presenter.getNoticeList(0);
-
                     return true;
 
                 case R.id.navigation_software:
-
-                    noticeAdapter = new NoticeAdapter();
-                    listView.setAdapter(noticeAdapter);
+                    presenter.getNoticeList(6);
                     return true;
 
                 case R.id.navigation_mechanical:
-                    noticeAdapter = new NoticeAdapter();
-                    listView.setAdapter(noticeAdapter);
+                    presenter.getNoticeList(4);
                     return true;
 
                 case R.id.navigation_ict:
-
                     listView.setAdapter(adapter);
+                    setVisibility(true);
                     return true;
 
                 case R.id.navigation_chemistry:
-
-                    noticeAdapter = new NoticeAdapter();
-                    listView.setAdapter(noticeAdapter);
-
+                    presenter.getNoticeList(1);
                     return true;
-
             }
             return false;
         }
@@ -68,24 +61,21 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
         adapter.notifyDataSetChanged();
     }
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         presenter = new MainPresenter(this);
-        presenter.setView(this);;
-
-
+        presenter.setView(this);
 
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
-
+        listView = (ListView) findViewById(R.id.totallist);
+        tmpLayout=(RelativeLayout)findViewById(R.id.tmpView);
 
         adapter = new MajorAdapter();
-        listView = (ListView) findViewById(R.id.totallist);
 
-//        presenter.getNoticeList(0);
+        presenter.getNoticeList(0);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
         adapter.notifyDataSetChanged();
@@ -95,5 +85,19 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
     public Context getContext() {
 
         return getApplicationContext();
+    }
+
+    public void setVisibility(boolean judge){
+        if(judge==true){
+            listView.setVisibility(View.VISIBLE);
+            tmpLayout.setVisibility(View.GONE);
+        } else {
+            listView.setVisibility(View.GONE);
+            tmpLayout.setVisibility(View.VISIBLE);
+        }
+    }
+
+    public void onClick(AdapterView.OnItemClickListener listener){
+        listView.setOnItemClickListener(listener);
     }
 }

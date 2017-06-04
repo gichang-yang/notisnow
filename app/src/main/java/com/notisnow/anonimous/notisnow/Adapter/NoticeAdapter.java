@@ -7,6 +7,7 @@ import android.widget.BaseAdapter;
 
 import com.notisnow.anonimous.notisnow.Item.NoticeItem;
 import com.notisnow.anonimous.notisnow.Model.Notice;
+import com.notisnow.anonimous.notisnow.UI.NoticeAdapterContract;
 
 import java.util.ArrayList;
 
@@ -14,9 +15,10 @@ import java.util.ArrayList;
  * Created by yang-gichang on 2017. 5. 29..
  */
 
-public class NoticeAdapter extends BaseAdapter {
-    ArrayList<Notice> notices;
+public class NoticeAdapter extends BaseAdapter implements NoticeAdapterContract.Model,NoticeAdapterContract.View{
+    ArrayList<Notice> notices=new ArrayList<>();
     AdapterView.OnItemClickListener listener;
+
 
     @Override
     public int getCount() {
@@ -24,9 +26,25 @@ public class NoticeAdapter extends BaseAdapter {
         //return notices.size();
     }
 
+
     @Override
-    public Object getItem(int position) {
-        return null;
+    public void setOnItemClickListener(AdapterView.OnItemClickListener listener) {
+        this.listener=listener;
+    }
+
+    @Override
+    public void setNoticeList(ArrayList<Notice> list) {
+        notices=list;
+    }
+
+    @Override
+    public AdapterView.OnItemClickListener getOnItemClickListener() {
+        return listener;
+    }
+
+    @Override
+    public Notice getItem(int position) {
+        return notices.get(position);
     }
 
     @Override
@@ -46,11 +64,7 @@ public class NoticeAdapter extends BaseAdapter {
         return item;
     }
 
-    public void setNoticeList(ArrayList<Notice> list){
-        notices=list;
 
-
-    }
 
 
 }

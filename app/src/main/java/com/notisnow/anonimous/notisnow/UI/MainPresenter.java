@@ -1,6 +1,9 @@
 package com.notisnow.anonimous.notisnow.UI;
 
+import android.content.Intent;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -11,6 +14,7 @@ import com.android.volley.toolbox.Volley;
 import com.notisnow.anonimous.notisnow.Adapter.MajorAdapter;
 import com.notisnow.anonimous.notisnow.Adapter.NoticeAdapter;
 import com.notisnow.anonimous.notisnow.Model.Notice;
+import com.notisnow.anonimous.notisnow.UI.NoticeDeail.NoticeDetailActivity;
 import com.notisnow.anonimous.notisnow.staticField.Data;
 
 import org.jsoup.Jsoup;
@@ -32,6 +36,7 @@ public class MainPresenter implements MainContract.Presenter {
     StringBuffer result;
     Elements element;
     ArrayList<Notice> NoticeList;
+    int id;
 
     public MainPresenter(MainActivity mainActivity) {
         this.mainActivity = mainActivity;
@@ -42,11 +47,10 @@ public class MainPresenter implements MainContract.Presenter {
         this.view = view;
     }
 
-    public ArrayList<Notice> fetch(String url) {
-        // BaseApplication application = new BaseApplication();
-        //application.onCreate();
-        //queue= BaseApplication.getRequestQueue();
-        // Log.d("Request queue is...",queue.toString());
+
+    public ArrayList<Notice> fetch(final int id) {
+        this.id = id;
+        String url = Data.getUrl()[id];
         queue = Volley.newRequestQueue(mainActivity.getContext());
 
 
@@ -61,72 +65,66 @@ public class MainPresenter implements MainContract.Presenter {
                         Log.d("responseREQUESTQUEUE", response);
                         Document doc = Jsoup.parse(response);
                         result.append(response);
-                        element = doc.select("td.title");
+                        element = doc.select(Data.getQuery()[id]);
                         NoticeList = new ArrayList<>();
                         for (int i = 0; i < element.size(); i++) {
                             Notice notice = new Notice();
                             notice.setTitle(element.get(i).text());
-                            notice.setLink(element.get(i).attr("href"));
+                            // Log.d("get judge", "judge:" + element.get(i).text().length() + "|");
+
+                            if (element.get(i).text().length() < 2) {
+                                String tmp = (Jsoup.parse(element.get(i).toString()).select("숙명여대").toString());
+                                notice.setTitle(tmp.substring(5, tmp.length() - 7));
+                                //Log.d("parsing fail?", "failed");
+                            }
+
+                            if (id < 5) notice.setLink(element.get(i).attr("href"));
+                            else notice.setLink(Data.getUrl()[id]);
+
                             notice.setDate("2017");
                             NoticeList.add(notice);
 
-
-
                         }
-                        // Log.d("fetched",tag);
+                        //Log.d("fetched",tag);
                         NoticeAdapter adapter = new NoticeAdapter();
                         adapter.setNoticeList(NoticeList);
+                        adapter.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                            @Override
+                            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                                Intent intent = new Intent(mainActivity.getApplicationContext(), NoticeDetailActivity.class);
+                                intent.putExtra("link", NoticeList.get(position).getLink());
+                                mainActivity.startActivity(intent);
+                            }
+                        });
                         mainActivity.setNoticeAdapter(adapter);
-                        Log.d("selected elements", element.toString());
+                        mainActivity.onClick(adapter.getOnItemClickListener());
+                        mainActivity.setVisibility(true);
+                        //Log.d("selected elements", element.toString());
 
                     }
                 },
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-
-
                         result.append("error");
-                        Log.d("responseREQUESTQUEUE", "error");
+                        //Log.d("responseREQUESTQUEUE", "error");
                     }
                 }
 
         );
-        Log.d("stringREQ", stringRequest.toString());
-        //try {
+        //Log.d("stringREQ", stringRequest.toString());
+
         queue.add(stringRequest);
-        //}catch (Exception e){
-        //    e.printStackTrace();
-        //}
 
         return NoticeList;
     }
 
-
     @Override
     public ArrayList<Notice> getNoticeList(int id) {
+        mainActivity.setVisibility(false);
+        return fetch(id);
 
-
-
-        switch (id) {
-            case 0:
-                //Log.d("elements",element.select("td.title").toString());
-                break;
-            case 1:
-                break;
-            case 2:
-                break;
-            case 3:
-                break;
-            case 4:
-                break;
-        }
-
-        return fetch(Data.getUrl()[id]);
     }
-
-
-
 
     @Override
     public NoticeAdapter getNoticeAdapter() {
