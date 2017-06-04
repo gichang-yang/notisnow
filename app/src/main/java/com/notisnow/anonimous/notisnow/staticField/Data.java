@@ -26,6 +26,7 @@ public class Data {
             "[href^=javascript:jf_view]"
     };
 
+
     public static String[] getUrl() {
         return url;
     }

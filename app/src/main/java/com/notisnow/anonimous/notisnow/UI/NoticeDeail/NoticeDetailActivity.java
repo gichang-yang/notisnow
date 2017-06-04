@@ -23,13 +23,18 @@ public class NoticeDetailActivity extends AppCompatActivity implements NoticeDet
 
         NoticeDetailPresenter presenter= new NoticeDetailPresenter();
         presenter.setView(this);
-        presenter.fetch(receive.getStringExtra("link"));
 
         webView=(WebView)findViewById(R.id.contents);
         WebView webView=(WebView)findViewById(R.id.contents);
         webView.getSettings().setSupportZoom(true);
         webView.getSettings().setBuiltInZoomControls(true);
         webView.getSettings().setDisplayZoomControls(false);
+
+        if(getIntent().getBooleanExtra("getAble",false))presenter.fetch(receive.getStringExtra("link"));
+        else{
+            webView.loadUrl(getIntent().getStringExtra("link"));
+            webView.getSettings().setJavaScriptEnabled(true);
+        }
     }
 
 

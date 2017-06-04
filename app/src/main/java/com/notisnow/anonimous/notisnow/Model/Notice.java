@@ -10,6 +10,7 @@ public class Notice implements MainContract.Model {
     private String title;
     private String date;
     private String link;
+    private Boolean judge=false;
 
     public String getTitle() {
         return title;
@@ -34,5 +35,13 @@ public class Notice implements MainContract.Model {
     public void setDate(String date) {
         this.date = date;
 
+    }
+
+    public Boolean getJudge() {
+        return judge;
+    }
+
+    public void setJudge(Boolean judge) {
+        this.judge = judge;
     }
 }
