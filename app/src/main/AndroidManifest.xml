@@ -21,7 +21,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".UI.NoticeDeail.NoticeDetailActivity"></activity>
+        <activity android:name=".UI.NoticeDeail.NoticeDetailActivity" />
+        <activity android:name=".UI.IctNotice.IctNoticeActivity"></activity>
     </application>
 
 </manifest>

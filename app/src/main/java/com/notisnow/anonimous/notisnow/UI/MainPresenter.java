@@ -78,7 +78,11 @@ public class MainPresenter implements MainContract.Presenter {
                                 //Log.d("parsing fail?", "failed");
                             }
 
-                            if (id < 5) notice.setLink(element.get(i).attr("href"));
+                            if (id < 5){
+                                notice.setLink(element.get(i).select("a").attr("href"));
+                                Log.d("listLink",element.get(i).select("a").attr("href"));
+                            }
+
                             else notice.setLink(Data.getUrl()[id]);
 
                             notice.setDate("2017");
@@ -93,6 +97,7 @@ public class MainPresenter implements MainContract.Presenter {
                             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                                 Intent intent = new Intent(mainActivity.getApplicationContext(), NoticeDetailActivity.class);
                                 intent.putExtra("link", NoticeList.get(position).getLink());
+                                intent.putExtra("title",NoticeList.get(position).getTitle());
                                 mainActivity.startActivity(intent);
                             }
                         });

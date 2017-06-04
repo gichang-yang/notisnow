@@ -56,7 +56,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
 
     };
 
-    public void setNoticeAdapter(NoticeAdapter adapter){
+    public void setNoticeAdapter(NoticeAdapter adapter) {
         listView.setAdapter(adapter);
         adapter.notifyDataSetChanged();
     }
@@ -71,7 +71,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
 
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         listView = (ListView) findViewById(R.id.totallist);
-        tmpLayout=(RelativeLayout)findViewById(R.id.tmpView);
+        tmpLayout = (RelativeLayout) findViewById(R.id.tmpView);
 
         adapter = new MajorAdapter();
 
@@ -81,14 +81,18 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
         adapter.notifyDataSetChanged();
     }
 
+    /*private AdapterView.OnItemClickListener majorListener(){
+
+    }*/
+
     @Override
     public Context getContext() {
 
         return getApplicationContext();
     }
 
-    public void setVisibility(boolean judge){
-        if(judge==true){
+    public void setVisibility(boolean judge) {
+        if (judge == true) {
             listView.setVisibility(View.VISIBLE);
             tmpLayout.setVisibility(View.GONE);
         } else {
@@ -97,7 +101,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
         }
     }
 
-    public void onClick(AdapterView.OnItemClickListener listener){
+    public void onClick(AdapterView.OnItemClickListener listener) {
         listView.setOnItemClickListener(listener);
     }
 }
