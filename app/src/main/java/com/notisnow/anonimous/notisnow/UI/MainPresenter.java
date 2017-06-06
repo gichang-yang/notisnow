@@ -52,7 +52,7 @@ public class MainPresenter implements MainContract.Presenter {
         this.id = id;
         String url = Data.getUrl()[id];
         queue = Volley.newRequestQueue(mainActivity.getContext());
-
+        mainActivity.setVisibility(false);
 
         result = new StringBuffer("");
 
@@ -72,9 +72,14 @@ public class MainPresenter implements MainContract.Presenter {
                             notice.setTitle(element.get(i).text());
                             // Log.d("get judge", "judge:" + element.get(i).text().length() + "|");
 
-                            if (element.get(i).text().length() < 2) {
-                                String tmp = (Jsoup.parse(element.get(i).toString()).select("숙명여대").toString());
-                                notice.setTitle(tmp.substring(5, tmp.length() - 7));
+                            if (element.get(i).text().length() < 5) {
+                                String tmp = (Jsoup.parse(element.get(i).toString()).select("a").html());
+                                tmp=tmp.split("</")[0];
+                                if(tmp.length()>40){
+                                    tmp=tmp.substring(0,37);
+                                    tmp=tmp.concat("...");
+                                }
+                                notice.setTitle(tmp);
                                 //Log.d("parsing fail?", "failed");
                             }
 
@@ -100,7 +105,7 @@ public class MainPresenter implements MainContract.Presenter {
                                 Intent intent = new Intent(mainActivity.getApplicationContext(), NoticeDetailActivity.class);
                                 intent.putExtra("link", NoticeList.get(position).getLink());
                                 intent.putExtra("title", NoticeList.get(position).getTitle());
-                                intent.putExtra("getAble",NoticeList.get(position).getJudge());
+                                intent.putExtra("getAble", NoticeList.get(position).getJudge());
                                 mainActivity.startActivity(intent);
                             }
                         });
@@ -129,7 +134,7 @@ public class MainPresenter implements MainContract.Presenter {
 
     @Override
     public ArrayList<Notice> getNoticeList(int id) {
-        mainActivity.setVisibility(false);
+
         return fetch(id);
 
     }

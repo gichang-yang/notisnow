@@ -19,6 +19,7 @@ public class MajorAdapter extends BaseAdapter {
     String[] majorArray={"전자공학전공","응용물리전공","IT공학전공"};
     int[] majImgIdArray={R.drawable.major_electron,R.drawable.major_physics,R.drawable.major_it};
     Context context;
+    int[] urlId={3,5,2};
 
 
     public Context setContext(Context context){
@@ -58,5 +59,9 @@ public class MajorAdapter extends BaseAdapter {
         item.setTitle(majorArray[position]);
 
         return item;
+    }
+
+    public int[] getUrlId() {
+        return urlId;
     }
 }

@@ -17,7 +17,7 @@ public interface IctNoticeContract {
 
     interface Presenter{
         void setView(View v);
-        void fetch(String url);
+        void fetch(int id);
         NoticeAdapter getNoticeAdapter();
 
     }

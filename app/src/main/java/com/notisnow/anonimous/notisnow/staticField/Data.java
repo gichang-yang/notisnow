@@ -1,5 +1,7 @@
 package com.notisnow.anonimous.notisnow.staticField;
 
+import static android.R.attr.key;
+
 /**
  * Created by yang-gichang on 2017. 5. 28..
  */
@@ -12,7 +14,7 @@ public class Data {
             , "http://it.sookmyung.ac.kr/wiz5/wizard/frames/server_sub.html?home_id=it&menu_seq=10&menu_seq_open=&tic=1495976982&handle=1&state=list&boardSeq=&siteId=it&SITE_ID=it&boardId=1&BOARD_ID=1"
             , "http://electro.sookmyung.ac.kr/wiz5/wizard/frames/server_sub.html?home_id=electro&menu_seq=5&menu_seq_open=&tic=1495977296&handle=1&state=list&boardSeq=&siteId=electro&SITE_ID=electro&boardId=1&BOARD_ID=1"
             , "http://mse.sookmyung.ac.kr/wiz5/wizard/frames/server_sub.html?home_id=mse&menu_seq=4&menu_seq_open=&tic=1495978301&handle=1&state=list&boardSeq=&siteId=mse&SITE_ID=mse&boardId=1&BOARD_ID=1"
-            ,""
+            ,"http://physics.sookmyung.ac.kr/wiz/contents/board/board.php?home_id=physics&handle=1"
             ,"http://csweb.sookmyung.ac.kr/wiz/contents/board/board.php?home_id=cs&handle=1"
     };
 
@@ -26,6 +28,9 @@ public class Data {
             "[href^=javascript:jf_view]"
     };
 
+    public static String postUrl(String maj,int val){
+        return "http://csweb.sookmyung.ac.kr/wiz/contents/board/board0/board_view.php?home_id="+key+"&board_seq="+val;
+    }
 
     public static String[] getUrl() {
         return url;

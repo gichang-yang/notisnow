@@ -1,5 +1,6 @@
 package com.notisnow.anonimous.notisnow.Adapter;
 
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -22,8 +23,10 @@ public class NoticeAdapter extends BaseAdapter implements NoticeAdapterContract.
 
     @Override
     public int getCount() {
+        Log.d("returnSize",""+notices.size());
         return notices.size();
-        //return notices.size();
+
+
     }
 
 

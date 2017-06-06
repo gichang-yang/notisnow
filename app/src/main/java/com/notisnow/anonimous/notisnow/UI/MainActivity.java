@@ -1,6 +1,7 @@
 package com.notisnow.anonimous.notisnow.UI;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -15,6 +16,7 @@ import android.widget.TextView;
 import com.notisnow.anonimous.notisnow.Adapter.MajorAdapter;
 import com.notisnow.anonimous.notisnow.Adapter.NoticeAdapter;
 import com.notisnow.anonimous.notisnow.R;
+import com.notisnow.anonimous.notisnow.UI.IctNotice.IctNoticeActivity;
 
 public class MainActivity extends AppCompatActivity implements MainContract.View {
 
@@ -45,6 +47,14 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
                 case R.id.navigation_ict:
                     listView.setAdapter(adapter);
                     setVisibility(true);
+                    listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                            Intent intent = new Intent(getApplicationContext(), IctNoticeActivity.class);
+                            intent.putExtra("linkId",adapter.getUrlId()[position]);
+                            startActivity(intent);
+                        }
+                    });
                     return true;
 
                 case R.id.navigation_chemistry:

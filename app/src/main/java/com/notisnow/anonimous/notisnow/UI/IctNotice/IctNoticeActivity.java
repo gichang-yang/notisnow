@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 
@@ -19,10 +20,14 @@ public class IctNoticeActivity extends AppCompatActivity implements IctNoticeCon
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ict_notice);
 
-        listView = (ListView) findViewById(R.id.totallist);
+        listView = (ListView) findViewById(R.id.list);
         tmpLayout = (RelativeLayout) findViewById(R.id.tmpView);
+        IctNoticePresenter presenter= new IctNoticePresenter();
+        presenter.setView(this);
+        presenter.fetch(getIntent().getIntExtra("linkId",0));
 
-        adapter = new NoticeAdapter();
+
+
     }
 
     @Override
@@ -43,6 +48,10 @@ public class IctNoticeActivity extends AppCompatActivity implements IctNoticeCon
 
     @Override
     public void setNoticeAdapter(NoticeAdapter adapter) {
+        listView.setAdapter(adapter);
+    }
 
+    public void onClick(AdapterView.OnItemClickListener listener) {
+        listView.setOnItemClickListener(listener);
     }
 }
