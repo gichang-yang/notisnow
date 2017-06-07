@@ -16,6 +16,7 @@ public interface MainContract {
     interface View{
         Context getContext();
         void setNoticeAdapter(NoticeAdapter adapter);
+        void setTextViewError(Boolean judge);
     }
 
     interface Presenter{

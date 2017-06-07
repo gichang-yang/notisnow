@@ -3,6 +3,7 @@ package com.notisnow.anonimous.notisnow.UI.NoticeDeail;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.TextView;
 
@@ -29,6 +30,8 @@ public class NoticeDetailActivity extends AppCompatActivity implements NoticeDet
         webView.getSettings().setSupportZoom(true);
         webView.getSettings().setBuiltInZoomControls(true);
         webView.getSettings().setDisplayZoomControls(false);
+        webView.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
+        webView.getSettings().setJavaScriptEnabled(true);
 
         if(getIntent().getBooleanExtra("getAble",false))presenter.fetch(receive.getStringExtra("link"));
         else{

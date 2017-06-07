@@ -1,7 +1,5 @@
 package com.notisnow.anonimous.notisnow.staticField;
 
-import static android.R.attr.key;
-
 /**
  * Created by yang-gichang on 2017. 5. 28..
  */
@@ -18,6 +16,8 @@ public class Data {
             ,"http://csweb.sookmyung.ac.kr/wiz/contents/board/board.php?home_id=cs&handle=1"
     };
 
+    private static String[] postHomeId={"cs","physics"};
+
     private static String[] query = {
             "td.title",
             "td.title",
@@ -28,8 +28,8 @@ public class Data {
             "[href^=javascript:jf_view]"
     };
 
-    public static String postUrl(String maj,int val){
-        return "http://csweb.sookmyung.ac.kr/wiz/contents/board/board0/board_view.php?home_id="+key+"&board_seq="+val;
+    public static String postUrl(String maj,String val){
+        return "http://csweb.sookmyung.ac.kr/wiz/contents/board/board0/board_view.php?home_id="+maj+"&board_seq="+val;
     }
 
     public static String[] getUrl() {
@@ -37,4 +37,8 @@ public class Data {
     }
 
     public static String[] getQuery(){return query;}
+
+    public static String[] getPostHomeId() {
+        return postHomeId;
+    }
 }

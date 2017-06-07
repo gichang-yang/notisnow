@@ -62,7 +62,15 @@ public class NoticeAdapter extends BaseAdapter implements NoticeAdapterContract.
 
         if(convertView==null) item=new NoticeItem(parent.getContext());
         else item=(NoticeItem)convertView;
-        item.setTitle(notices.get(position).getTitle());
+
+        String title=notices.get(position).getTitle();
+        if(title.length()>44){
+            title=title.replace("\n","");
+            title=title.substring(0,41);
+            title=title.concat("...");
+            item.setTitle(title);
+        }
+        else item.setTitle(notices.get(position).getTitle());
         item.setDate(notices.get(position).getDate());
         return item;
     }

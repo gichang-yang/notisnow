@@ -44,7 +44,7 @@ public class MainPresenter implements MainContract.Presenter {
 
     @Override
     public void setView(MainContract.View v) {
-        this.view = view;
+        this.view = v;
     }
 
 
@@ -53,9 +53,8 @@ public class MainPresenter implements MainContract.Presenter {
         String url = Data.getUrl()[id];
         queue = Volley.newRequestQueue(mainActivity.getContext());
         mainActivity.setVisibility(false);
-
+        view.setTextViewError(true);
         result = new StringBuffer("");
-
 
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
 
@@ -75,10 +74,7 @@ public class MainPresenter implements MainContract.Presenter {
                             if (element.get(i).text().length() < 5) {
                                 String tmp = (Jsoup.parse(element.get(i).toString()).select("a").html());
                                 tmp=tmp.split("</")[0];
-                                if(tmp.length()>40){
-                                    tmp=tmp.substring(0,37);
-                                    tmp=tmp.concat("...");
-                                }
+
                                 notice.setTitle(tmp);
                                 //Log.d("parsing fail?", "failed");
                             }
@@ -87,14 +83,12 @@ public class MainPresenter implements MainContract.Presenter {
                                 notice.setLink(element.get(i).select("a").attr("href"));
                                 Log.d("listLink", element.get(i).select("a").attr("href"));
                                 notice.setJudge(true);
-                                // notice.setDate(doc.select("td").get(i*6+4).text());
-                            } else
-                                notice.setLink(Data.getUrl()[id]);
+                            } else{
+                                notice.setLink(Data.postUrl(Data.getPostHomeId()[0],refinePost(element.get(i).attr("href"))));
+                                //Log.d("liskLink:",Data.postUrl(Data.getPostHomeId()[0],refinePost(element.get(i).attr("href"))));
+                            }
                             notice.setDate("2017");
-
-
                             NoticeList.add(notice);
-
                         }
                         //Log.d("fetched",tag);
                         NoticeAdapter adapter = new NoticeAdapter();
@@ -113,37 +107,34 @@ public class MainPresenter implements MainContract.Presenter {
                         mainActivity.onClick(adapter.getOnItemClickListener());
                         mainActivity.setVisibility(true);
                         //Log.d("selected elements", element.toString());
-
                     }
                 },
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         result.append("error");
+                        view.setTextViewError(false);
                         //Log.d("responseREQUESTQUEUE", "error");
                     }
                 }
-
         );
         //Log.d("stringREQ", stringRequest.toString());
-
         queue.add(stringRequest);
-
         return NoticeList;
     }
-
+    private String refinePost(String init){
+        String tmp=init.replace("javascript:jf_view(\'","");
+        tmp=tmp.replace("\');","");
+        return tmp;
+    }
     @Override
     public ArrayList<Notice> getNoticeList(int id) {
-
         return fetch(id);
-
     }
-
     @Override
     public NoticeAdapter getNoticeAdapter() {
         return new NoticeAdapter();
     }
-
     @Override
     public MajorAdapter getMajorAdapter() {
         return null;

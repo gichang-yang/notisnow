@@ -73,10 +73,7 @@ public class IctNoticePresenter implements IctNoticeContract.Presenter {
                             if (element.get(i).text().length() < 5) {
                                 String tmp = (Jsoup.parse(element.get(i).toString()).select("a").html());
                                 tmp=tmp.split("</")[0];
-                                if(tmp.length()>48){
-                                    tmp=tmp.substring(0,44);
-                                    tmp=tmp.concat("...");
-                                }
+
                                 notice.setTitle(tmp);
                                 //Log.d("parsing fail?", "failed");
                             }
@@ -86,8 +83,10 @@ public class IctNoticePresenter implements IctNoticeContract.Presenter {
                                 Log.d("listLink", element.get(i).select("a").attr("href"));
                                 notice.setJudge(true);
                                 // notice.setDate(doc.select("td").get(i*6+4).text());
-                            } else
-                                notice.setLink(Data.getUrl()[id]);
+                            } else{
+                                notice.setLink(Data.postUrl(Data.getPostHomeId()[1],refinePost(element.get(i).attr("href"))));
+                            }
+
                             notice.setDate("2017");
 
 
@@ -126,6 +125,13 @@ public class IctNoticePresenter implements IctNoticeContract.Presenter {
         );
         //Log.d("stringREQ", stringRequest.toString());
         queue.add(stringRequest);
+    }
+
+    private String refinePost(String init){
+        String tmp=init.replace("javascript:jf_view(\'","");
+        tmp=tmp.replace("\');","");
+
+        return tmp;
     }
     @Override
     public NoticeAdapter getNoticeAdapter() {

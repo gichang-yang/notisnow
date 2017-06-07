@@ -74,7 +74,6 @@ public class NoticeDetailPresenter implements NoticeDetailContract.Presenter {
                 Elements elements = doc.select("[id=\"contentsdiv\"]");
                 String html=elements.get(0).text();
                 html=html.replace("<img","<img width=400 ");
-
                 // contents=view.getWebView();
                 contents=activity.webView;
                 contents.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
@@ -92,9 +91,6 @@ public class NoticeDetailPresenter implements NoticeDetailContract.Presenter {
                 Map<String,String> params=new HashMap<>();
                 params.put("home_id","cs");
                 params.put("board_seq","1906");
-
-
-
                 return params;
             }
         };
