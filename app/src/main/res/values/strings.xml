@@ -18,4 +18,11 @@
     <!--not contained in this version-->
     <string name="title_sw">소프트웨어학부</string>
     <string name="title_basics">기초공학부</string>
+
+    <string name="version_name">Build version: Snow 0.1.0</string>
+    <string name="title_activity_dev_info">DevInfo</string>
+
+
+    <string name="dev_info">개발자 정보</string>
+    <string name="open_source">오픈소스 라이브러리</string>
 </resources>

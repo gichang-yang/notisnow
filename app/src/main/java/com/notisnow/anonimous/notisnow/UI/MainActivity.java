@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -17,10 +19,13 @@ import com.notisnow.anonimous.notisnow.Adapter.MajorAdapter;
 import com.notisnow.anonimous.notisnow.Adapter.NoticeAdapter;
 import com.notisnow.anonimous.notisnow.R;
 import com.notisnow.anonimous.notisnow.UI.IctNotice.IctNoticeActivity;
+import com.notisnow.anonimous.notisnow.UI.Intro.IntroActivity;
+import com.notisnow.anonimous.notisnow.UI.More.DevInfoActivity;
+import com.notisnow.anonimous.notisnow.UI.More.OpenSourceInfoActivity;
 
 public class MainActivity extends AppCompatActivity implements MainContract.View {
 
-    int curId=0;
+    int curId = 0;
     RelativeLayout tmpLayout;
     TextView mTextMessage;
     ListView listView;
@@ -36,17 +41,17 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
             switch (item.getItemId()) {
                 case R.id.navigation_home:
                     presenter.getNoticeList(0);
-                    curId=0;
+                    curId = 0;
                     return true;
 
                 case R.id.navigation_software:
                     presenter.getNoticeList(6);
-                    curId=6;
+                    curId = 6;
                     return true;
 
                 case R.id.navigation_mechanical:
                     presenter.getNoticeList(4);
-                    curId=4;
+                    curId = 4;
                     return true;
 
                 case R.id.navigation_ict:
@@ -56,7 +61,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
                         @Override
                         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                             Intent intent = new Intent(getApplicationContext(), IctNoticeActivity.class);
-                            intent.putExtra("linkId",adapter.getUrlId()[position]);
+                            intent.putExtra("linkId", adapter.getUrlId()[position]);
                             startActivity(intent);
                         }
                     });
@@ -64,7 +69,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
 
                 case R.id.navigation_chemistry:
                     presenter.getNoticeList(1);
-                    curId=1;
+                    curId = 1;
                     return true;
             }
             return false;
@@ -79,7 +84,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
 
     @Override
     public void setTextViewError(Boolean judge) {
-        if(judge==false)mTextMessage.setText("서버가 응답하지 않습니다");
+        if (judge == false) mTextMessage.setText("서버가 응답하지 않습니다");
         else mTextMessage.setText("Loading...");
     }
 
@@ -87,7 +92,9 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        mTextMessage=(TextView)findViewById(R.id.textView2);
+        Intent splash = new Intent(this, IntroActivity.class);
+        startActivity(splash);
+        mTextMessage = (TextView) findViewById(R.id.textView2);
         presenter = new MainPresenter(this);
         presenter.setView(this);
 
@@ -103,14 +110,36 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
         adapter.notifyDataSetChanged();
     }
 
-    /*private AdapterView.OnItemClickListener majorListener(){
 
-    }*/
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.more, menu);
+
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        Intent intent=new Intent(this,OpenSourceInfoActivity.class);
+
+        switch(item.getItemId()){
+            case R.id.opensource_info:
+                intent.setClass(this,OpenSourceInfoActivity.class);
+                break;
+            case R.id.dev_info:
+                intent.setClass(this, DevInfoActivity.class);
+                break;
+        }
+
+        startActivity(intent);
+        return super.onOptionsItemSelected(item);
+    }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        curId=1;
+        curId = 1;
     }
 
     @Override

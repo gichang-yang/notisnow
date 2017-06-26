@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.notisnow.anonimous.notisnow.UI.More.DevInfoActivity">
+
+    <TextView
+        android:id="@+id/textView7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:text="개발자 정보"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="25sp"
+        android:textStyle="bold" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/textView7"
+        android:layout_alignParentStart="true">
+
+        <TextView
+            android:id="@+id/textView8"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:lineSpacingExtra="8sp"
+            android:text="* 2015.03 가천대학교 컴퓨터공학과 입학\n * 2016.02 가천대 자퇴 및 숭실대학교 소프트웨어학부 입학\n * 2016.06 숭실대 공개소프트웨어 학술소모임 “archo”운영\n * 2016.10 대학 연합 리눅스 유저그룹(ULUG) 정기 오픈세미나 발표자(음성인식과 서버 통신을 이용한 스마트카 구축) 및 개발자(안드로이드 파트)\n * 2016.12 엠생(엠티에서 생존하자) 플레이 스토어 제작 및 출시\n * 2017.01 숭실대 IT대학 밴드 동아리 회원관리 어플(안드로이드)제작.\n * 2017.04 farerpath 안드로이드 개발팀 엔지니어.\n * 2017.05 숭실대 개발커뮤니티 SSUMUNITY 안드로이드 개발팀\n \n\n * NotiSnow github주소:https://github.com/gichang-yang/notisnow \n * 개발자 github계정:https://github.com/gichang-yang\n"
+            android:textSize="14sp" />
+    </ScrollView>
+
+</RelativeLayout>
